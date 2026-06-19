@@ -4,7 +4,7 @@
   SITE — Dra. Manuela Ragazi · Cirurgiã-Dentista · Botafogo - RJ
   Dentística · Harmonização Orofacial
   ============================================================================
---> 
+-->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -121,8 +121,13 @@
     .nav-links a.lk{ font-size:.92rem; font-weight:500; opacity:.78; transition:opacity .2s; }
     .nav-links a.lk:hover{ opacity:1; }
     .nav-cta{ display:flex; align-items:center; gap:1rem; }
+    .nav-links .btn-primary{ display:none; }
     .burger{ display:none; background:none; border:none; cursor:pointer; padding:.4rem; }
     .burger span{ display:block; width:24px; height:2px; background:var(--ink); margin:5px 0; border-radius:2px; transition:.3s; }
+    .burger span{ transition:transform .3s ease, opacity .2s ease; transform-origin:center; }
+    .burger[aria-expanded="true"] span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+    .burger[aria-expanded="true"] span:nth-child(2){ opacity:0; transform:scaleX(.4); }
+    .burger[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
 
     /* HERO */
     .hero{ position:relative; padding-block:clamp(3rem,7vw,5.5rem) clamp(3rem,6vw,5rem); overflow:hidden; }
@@ -243,9 +248,9 @@
       .nav-links{ position:fixed; inset:72px 0 auto 0; flex-direction:column; align-items:flex-start; gap:0; background:var(--porcelain); border-bottom:1px solid var(--line); padding:1rem var(--pad) 1.6rem; transform:translateY(-130%); transition:transform .35s ease; box-shadow:0 20px 40px -24px rgba(23,51,41,.4); }
       .nav-links.open{ transform:translateY(0); }
       .nav-links a.lk{ width:100%; padding:.85rem 0; border-bottom:1px solid var(--line-soft); opacity:.9; }
-      .nav-links .btn{ margin-top:1rem; width:100%; justify-content:center; }
+      .nav-links .btn{ margin-top:1rem; width:100%; justify-content:center; display:flex; }
       .burger{ display:block; }
-      .nav-cta .btn-ghost{ display:none; }
+      .nav-cta .btn{ display:none; }
       .quickbar-grid{ grid-template-columns:1fr; }
       .qb + .qb{ border-left:none; border-top:1px solid var(--line-soft); }
       .cards{ grid-template-columns:1fr; }
@@ -268,6 +273,35 @@
     .wa-float:hover .wa-label{ opacity:1; }
     @media (max-width:760px){ .wa-float{ right:16px; bottom:16px; width:56px; height:56px; } .wa-label{ display:none; } }
     @media (prefers-reduced-motion:reduce){ .wa-float::before{ animation:none; } }
+  
+    /* ===== FAQ ===== */
+    #faq{ background:var(--porcelain-2); }
+    .faq-list{ max-width:760px; margin-inline:auto; }
+    .faq-item{ border:1px solid var(--line); border-radius:14px; background:#fff; margin-bottom:.85rem; overflow:hidden; transition:box-shadow .25s ease; }
+    .faq-item[open]{ box-shadow:0 18px 40px -30px rgba(23,51,41,.45); }
+    .faq-item summary{ list-style:none; cursor:pointer; padding:1.15rem 1.4rem; font-weight:600; font-size:1.02rem; color:var(--ink); display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .faq-item summary::-webkit-details-marker{ display:none; }
+    .faq-item summary::after{ content:"+"; font-weight:400; font-size:1.55rem; color:var(--champagne); line-height:1; transition:transform .25s ease; flex:none; }
+    .faq-item[open] summary::after{ transform:rotate(45deg); }
+    .faq-a{ padding:0 1.4rem 1.25rem; }
+    .faq-a p{ color:#42504a; margin:0; max-width:62ch; }
+
+    /* ===== Avaliações (CTA no depoimento) ===== */
+    .reviews-cta{ display:flex; flex-wrap:wrap; gap:.8rem; justify-content:center; margin-top:2.3rem; }
+    .btn-rev{ display:inline-flex; align-items:center; gap:.5rem; padding:.72rem 1.3rem; border-radius:100px; font-weight:600; font-size:.92rem; transition:transform .2s ease; }
+    .btn-rev svg{ width:17px; height:17px; }
+    .btn-rev-solid{ background:var(--porcelain); color:var(--eucalyptus-deep); }
+    .btn-rev-solid:hover{ transform:translateY(-2px); }
+    .btn-rev-outline{ background:transparent; color:var(--porcelain); border:1px solid rgba(246,244,239,.4); }
+    .btn-rev-outline:hover{ background:rgba(246,244,239,.1); transform:translateY(-2px); }
+
+    /* ===== Barra fixa mobile ===== */
+    .mobile-bar{ display:none; position:fixed; left:0; right:0; bottom:0; z-index:150; background:#fff; border-top:1px solid var(--line); box-shadow:0 -8px 24px -12px rgba(23,51,41,.3); padding:.5rem; gap:.5rem; }
+    .mb-btn{ flex:1; display:flex; align-items:center; justify-content:center; gap:.5rem; padding:.85rem; border-radius:12px; font-weight:600; font-size:.98rem; }
+    .mb-btn svg{ width:20px; height:20px; }
+    .mb-call{ background:var(--porcelain-2); color:var(--eucalyptus); }
+    .mb-wa{ background:#25D366; color:#fff; }
+    @media (max-width:760px){ .mobile-bar{ display:flex; } .wa-float{ display:none; } body{ padding-bottom:74px; } }
   </style>
 </head>
 <body>
@@ -281,12 +315,13 @@
       <nav class="nav-links" id="menu">
         <a href="#sobre" class="lk">Sobre</a>
         <a href="#especialidades" class="lk">Especialidades</a>
+        <a href="#faq" class="lk">Dúvidas</a>
         <a href="#local" class="lk">Onde atendo</a>
         <a href="#contato" class="lk">Contato</a>
-        <a href="https://wa.me/552125431807?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Manuela%20Ragazi." class="btn btn-primary" target="_blank" rel="noopener">Agendar</a>
+        <a href="https://wa.me/552125431807?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Manuela%20Ragazi." class="btn btn-primary" target="_blank" rel="noopener">Agendar consulta</a>
       </nav>
       <div class="nav-cta">
-        <a href="https://wa.me/552125431807?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Manuela%20Ragazi." class="btn btn-ghost" target="_blank" rel="noopener">Agendar consulta</a>
+        <a href="https://wa.me/552125431807?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Manuela%20Ragazi." class="btn btn-primary" target="_blank" rel="noopener">Agendar consulta</a>
         <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -419,6 +454,50 @@
       </div>
       <p class="quote">“Excelente trabalho! Extremamente detalhista e atenciosa. O procedimento foi muito tranquilo, indolor e o resultado final <em>superou minhas expectativas</em>. Trabalho de artista!”</p>
       <p class="quote-by"><b>Mariana Mira</b> · <span class="src"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.7L12 17.8 6 21.6l1.4-6.7L2.3 9l6.9-.7z"/></svg>Avaliação no Google</span></p>
+      <div class="reviews-cta">
+        <a class="btn-rev btn-rev-solid" href="https://www.google.com/search?q=Dra.+Manuela+Ragazi+dentista+Botafogo" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.7L12 17.8 6 21.6l1.4-6.7L2.3 9l6.9-.7z"/></svg>
+          Ver avaliações no Google
+        </a>
+        <a class="btn-rev btn-rev-outline" href="https://www.google.com/search?q=Dra.+Manuela+Ragazi+dentista+Botafogo" target="_blank" rel="noopener">Deixe sua avaliação</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Perguntas frequentes</span>
+        <h2>Tirando suas dúvidas</h2>
+        <p>O que as pessoas mais perguntam antes de marcar. Qualquer outra dúvida, é só chamar no WhatsApp.</p>
+      </div>
+      <div class="faq-list reveal">
+        <details class="faq-item">
+          <summary>Como faço para agendar uma consulta?</summary>
+          <div class="faq-a"><p>O agendamento é feito pelo WhatsApp da clínica. Ao clicar no botão, a mensagem já vai preenchida e a equipe confirma o melhor horário com você.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Quais dias e horários a Dra. Manuela atende?</summary>
+          <div class="faq-a"><p>Às terças e quartas-feiras, das 8h às 18h, sempre com hora marcada.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Onde fica o consultório?</summary>
+          <div class="faq-a"><p>Na Dental Clinic Corcovado — Av. Pasteur, 72, 1º andar, em Botafogo, Rio de Janeiro. Logo abaixo nesta página tem um mapa pra te ajudar a chegar.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Quais tratamentos a Dra. realiza?</summary>
+          <div class="faq-a"><p>Dentística (restaurações, clareamento e facetas) e Harmonização Orofacial. Na consulta de avaliação, ela monta o plano ideal para o seu caso.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>Como funciona a primeira consulta?</summary>
+          <div class="faq-a"><p>É uma avaliação tranquila: a Dra. Manuela conversa sobre o que você deseja, examina e explica as opções e o planejamento, com calma e sem compromisso.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>A clínica atende convênio? Quais as formas de pagamento?</summary>
+          <div class="faq-a"><p>Para confirmar convênios e formas de pagamento, fale com a equipe pelo WhatsApp — eles te passam todos os detalhes na hora.</p></div>
+        </details>
+      </div>
     </div>
   </section>
 
@@ -549,5 +628,22 @@
       requestAnimationFrame(() => { smile.style.transition = 'stroke-dashoffset 1.4s ease .3s'; smile.style.strokeDashoffset = '0'; });
     }
   </script>
+  <!-- Barra fixa mobile (Ligar + WhatsApp) -->
+  <div class="mobile-bar">
+    <a class="mb-btn mb-call" href="tel:+552125431807">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 18l-1 3a16 16 0 0 1-14-14z"/></svg>
+      Ligar
+    </a>
+    <a class="mb-btn mb-wa" href="https://wa.me/552125431807?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Dra.%20Manuela%20Ragazi." target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.1c-.24.68-1.2 1.26-1.97 1.42-.53.11-1.22.2-3.54-.76-2.97-1.23-4.88-4.25-5.03-4.45-.15-.2-1.21-1.61-1.21-3.07 0-1.46.77-2.18 1.04-2.48.27-.3.59-.37.79-.37.2 0 .39.002.56.01.18.008.42-.07.66.5.24.58.82 2 .89 2.15.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.18-.31.39-.45.53-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.02 1.12.99 2.06 1.3 2.36 1.45.3.15.47.13.64-.08.17-.2.74-.86.94-1.16.2-.3.39-.25.66-.15.27.1 1.7.8 1.99.95.3.15.5.22.57.34.07.13.07.73-.17 1.42z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+
+  <!-- Vercel Speed Insights -->
+  <script>
+    window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>
